@@ -1,0 +1,38 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:model="using:BlankWorder.Models"
+    >
+    <DataTemplate x:Key="FolderItemTemplate">
+        <StackPanel Orientation="Horizontal">
+            <TextBlock 
+                Text="{Binding Content.Name}" 
+                Margin="0 0 0 3"
+                Style="{ThemeResource BodyTextBlockStyle}"
+                />
+            </StackPanel>
+    </DataTemplate>
+    <Style x:Key="FolderTreeViewItemStyle" TargetType="TreeViewItem" BasedOn="{StaticResource TreeViewItemStyle}">
+        <Setter Property="CollapsedGlyph" Value="&#xED41;" />
+        <Setter Property="ExpandedGlyph" Value="&#xED43;" />
+        <Setter Property="Margin" Value="-20 0 0 0" />
+    </Style>
+    <ControlTemplate x:Key="FolderTreeControlTemplate">
+        <TreeViewList
+            x:Name="ListControl"   
+            ItemTemplate="{StaticResource FolderItemTemplate}"
+            ItemContainerStyle="{StaticResource FolderTreeViewItemStyle}"
+            CanDragItems="True"
+            AllowDrop="True"
+            CanReorderItems="True" 
+            >
+            <TreeViewList.ItemContainerTransitions>
+                <TransitionCollection>
+                    <ContentThemeTransition />
+                    <ReorderThemeTransition />
+                    <EntranceThemeTransition IsStaggeringEnabled="False" />
+                </TransitionCollection>
+            </TreeViewList.ItemContainerTransitions>
+        </TreeViewList>
+    </ControlTemplate>
+</ResourceDictionary>

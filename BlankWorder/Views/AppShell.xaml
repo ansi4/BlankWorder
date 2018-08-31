@@ -1,0 +1,40 @@
+﻿<Page
+    x:Class="BlankWorder.Views.AppShell"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:model="using:BlankWorder.Models"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prsm="using:Prism.Windows.Mvvm"
+    prsm:ViewModelLocator.AutoWireViewModel="True"
+    
+    Loaded="Page_Loaded"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    >
+
+    <NavigationView
+        x:Name="Navigation"
+        IsSettingsVisible="False"
+        IsBackButtonVisible="Collapsed"
+        Header="{x:Bind ViewModel.SelectedItem.Text, Mode=OneWay}"
+        MenuItemsSource="{x:Bind ViewModel.NavigationItems}"
+        SelectedItem="{x:Bind ViewModel.SelectedItem, Mode=TwoWay}"
+        >
+        <NavigationView.MenuItemTemplate>
+            <DataTemplate x:DataType="model:NavigationMenuItem">
+                <StackPanel Orientation="Horizontal">
+                    <FontIcon Glyph="{x:Bind Icon}" FontFamily="Segoe MDL2 Assets" Margin="0 0 20 0" />
+                    <TextBlock Text="{x:Bind Text}" />
+                </StackPanel>
+            </DataTemplate>
+        </NavigationView.MenuItemTemplate>
+        <i:Interaction.Behaviors>
+            <ic:EventTriggerBehavior EventName="ItemInvoked">
+                <ic:InvokeCommandAction Command="{x:Bind ItemInvoked}" />
+            </ic:EventTriggerBehavior>
+        </i:Interaction.Behaviors>
+    </NavigationView>
+</Page>
